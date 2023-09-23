@@ -13,7 +13,6 @@ class Solution:
                 max_h = h
                 l_max_i = i
                 r_max_i = i
-        print(max_h, l_max_i, r_max_i)
 
         # 왼쪽부터 가장 높은 곳 까지 탐색
         c_max_h = -1
