@@ -3,36 +3,36 @@ class Solution:
         # 가장 높은 곳들의 index들을 구함
         # 가장 높은 곳이 | 라고하면
         # [ 왼쪽 > 높은 곳 탐색 -> | 중간 부분 탐색 -> | <- 오른쪽 > 높은 곳 탐색 ]
+        l = len(height)
+        answer, max_h, left_i, right_i = 0, -1, -1, -1
 
-        # 가장 높은 곳의 높이와 그 곳의 인덱스를 구함
-        answer, max_h, l_max_i, r_max_i = 0, -1, -1, -1
-        for i, h in enumerate(height):
-            if max_h == h:
-                r_max_i = i
-            elif max_h < h:
-                max_h = h
-                l_max_i = i
-                r_max_i = i
-
-        # 왼쪽부터 가장 높은 곳 까지 탐색
-        c_max_h = -1
-        for h in height[:l_max_i]:
-            if h > c_max_h:
-                c_max_h = h
-            else:
-                answer += c_max_h - h
+        for i in range(l):
+            cur_h = height[i]
+            if cur_h > max_h:
+                max_h = cur_h
+                left_i = i
+                right_i = i
+            elif cur_h == max_h:
+                right_i = i
         
-        # 오른쪽부터 가장 높은 곳 까지 탐색
-        c_max_h = -1
-        for h in height[r_max_i+1:][::-1]:
-            if h > c_max_h:
-                c_max_h = h
+        c_max_h = 0
+        for i in range(left_i):
+            cur_h = height[i]
+            if cur_h > c_max_h:
+                c_max_h = cur_h
             else:
-                answer += c_max_h - h
+                answer += c_max_h-cur_h
+        
+        c_max_h = 0
+        for i in range(l-1, right_i-1, -1):
+            cur_h = height[i]
+            if cur_h > c_max_h:
+                c_max_h = cur_h
+            else:
+                answer += c_max_h-cur_h
 
-        # 가장 높은 곳들 사이에 있는 곳 탐색
-        for h in height[l_max_i+1:r_max_i]:
-            answer += max_h - h
-
+        for i in range(left_i+1, right_i):
+            answer += max_h-height[i]
+        
         return answer
             
