@@ -2,19 +2,19 @@ from random import sample
 
 class RandomizedSet:
     def __init__(self):
-        self.hash_map = {}
+        self.rand_set = set()
 
     def insert(self, val: int) -> bool:
-        if val in self.hash_map:
+        if val in self.rand_set:
             return False
-        self.hash_map[val] = 0
+        self.rand_set.add(val)
         return True
 
     def remove(self, val: int) -> bool:
-        if val not in self.hash_map:
+        if val not in self.rand_set:
             return False
-        self.hash_map.pop(val)
+        self.rand_set.remove(val)
         return True
 
     def getRandom(self) -> int:
-        return random.choice(list(self.hash_map.keys()))
+        return sample(self.rand_set,1)[0]
