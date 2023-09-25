@@ -7,8 +7,8 @@ class Solution:
             c = s[i:i+2]
             if c in roman_dict:
                 answer += roman_dict[c]
-                i += 2
+                i += 1
             else:
                 answer += roman_dict[c[0]]
-                i += 1
+            i += 1
         return answer
